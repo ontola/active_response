@@ -28,7 +28,7 @@ module ActiveResponse
         end
 
         def available_formats
-          descendants.map(&:formats).flatten
+          descendants.map(&:formats).flatten.sort { |format| format == :html ? 0 : 1 }
         end
       end
     end
