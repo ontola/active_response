@@ -20,10 +20,11 @@ module ActiveResponse
         def define_active_response_action(action)
           define_method action do
             respond_to do |format|
-              format.any(*ActiveResponse::Responders::Base.descendants.map(&:formats).flatten) do
-                format_symbol = format.format.symbol
-                @active_responder = ActiveResponse.responder_for(format_symbol).new(self, format_symbol)
-                execute_action
+              ActiveResponse::Responders::Base.available_formats.each do |symbol|
+                format.send(symbol) do
+                  find_active_responder(format)
+                  execute_action
+                end
               end
             end
           end
@@ -68,6 +69,11 @@ module ActiveResponse
       def execute_action
         return active_response_handle_success unless respond_to?("#{action_name}_execute", true)
         send("#{action_name}_execute") ? active_response_handle_success : active_response_handle_failure
+      end
+
+      def find_active_responder(format)
+        format_symbol = format.format.symbol
+        @active_responder = ActiveResponse.responder_for(format_symbol).new(self, format_symbol)
       end
 
       def respond_with_failure!

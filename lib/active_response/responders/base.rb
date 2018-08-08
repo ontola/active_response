@@ -26,6 +26,10 @@ module ActiveResponse
         def type
           @type ||= name.gsub('Responder', '').underscore.to_sym
         end
+
+        def available_formats
+          descendants.map(&:formats).flatten
+        end
       end
     end
   end
