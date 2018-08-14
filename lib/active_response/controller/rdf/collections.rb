@@ -24,6 +24,10 @@ module ActiveResponse
           }
         end
 
+        def collection_options
+          collection_view_params
+        end
+
         def collection_view_includes(member_includes = {})
           {member_sequence: {members: member_includes}}
         end
@@ -46,11 +50,19 @@ module ActiveResponse
         end
 
         def index_collection_or_view
-          collection_view_params.present? ? index_collection&.view_with_opts(collection_view_params) : index_collection
+          if (collection_view_params.keys & %w[page before]).any?
+            index_collection&.view_with_opts(collection_view_params)
+          else
+            index_collection
+          end
         end
 
         def index_includes_collection
-          collection_view_params.present? ? collection_view_includes(show_includes) : collection_includes(show_includes)
+          if index_collection_or_view.is_a?(RailsLD::Collection)
+            collection_includes(show_includes)
+          else
+            collection_view_includes(show_includes)
+          end
         end
 
         def index_meta; end
