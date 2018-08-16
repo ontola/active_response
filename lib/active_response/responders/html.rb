@@ -31,7 +31,7 @@ module ActiveResponse
       end
 
       def redirect(**opts)
-        controller.redirect_to opts[:location], opts.except(:location)
+        controller.send(:redirect_to, opts[:location], opts.except(:location))
       end
 
       def resource(**opts)
