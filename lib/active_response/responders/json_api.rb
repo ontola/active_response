@@ -39,8 +39,13 @@ module ActiveResponse
       end
 
       def formatted_errors(errors)
-        errors.keys.reduce([]) do |array, key|
-          array.concat(formatted_error(errors, key))
+        case errors
+        when Array
+          errors.map { |error| formatted_errors(error) }.flatten
+        when ActiveModel::Errors
+          errors.keys.reduce([]) do |array, key|
+            array.concat(formatted_error(errors, key))
+          end
         end
       end
     end
