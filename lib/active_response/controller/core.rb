@@ -19,19 +19,25 @@ module ActiveResponse
 
         def define_active_response_action(action)
           define_method action do
-            respond_to do |format|
-              ActiveResponse::Responders::Base.available_formats.each do |symbol|
-                format.send(symbol) do
-                  find_active_responder(format)
-                  execute_action
-                end
-              end
+            active_response_block do
+              execute_action
             end
           end
         end
       end
 
       private
+
+      def active_response_block
+        respond_to do |format|
+          ActiveResponse::Responders::Base.available_formats.each do |symbol|
+            format.send(symbol) do
+              find_active_responder(format)
+              yield
+            end
+          end
+        end
+      end
 
       def active_response_type
         @active_responder.type
