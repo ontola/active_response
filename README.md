@@ -27,8 +27,6 @@ This gem is still in development. Better documentation will be added later.
 
 The gem is not yet tested, but is used in our apps which have broad test coverage. Tests for this gem will be written later.
 
-Everything related to RDF and JSON_API will likely be extracted to a separate gem eventually.
-
 ## The concept
 ActiveResponse separates a controller action in two concepts: the execution and the responder.
 
@@ -90,7 +88,7 @@ active_response :crud
 ```
 
 Now we need to add Responders to our application. For example, add `app/responders/html_responder.rb`. 
-The gem includes predefined responders for html, json, js, json_api and rdf. 
+The gem includes predefined responders for html, json, js and json_api. 
 Inherit from these and tell ActiveResponse for which formats this responder should be selected. 
 
 ```ruby

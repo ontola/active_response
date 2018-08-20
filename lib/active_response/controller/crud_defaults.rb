@@ -8,8 +8,6 @@ require 'active_response/controller/crud_defaults/new'
 require 'active_response/controller/crud_defaults/show'
 require 'active_response/controller/crud_defaults/update'
 
-require 'active_response/controller/rdf/crud_defaults'
-
 module ActiveResponse
   module Controller
     module CrudDefaults
@@ -20,8 +18,6 @@ module ActiveResponse
       include New
       include Show
       include Update
-
-      include RDF::CrudDefaults
 
       def default_form_options(action)
         {
