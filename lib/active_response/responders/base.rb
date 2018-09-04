@@ -28,7 +28,9 @@ module ActiveResponse
         end
 
         def available_formats
-          descendants.map(&:formats).flatten.sort { |format| format == :html ? 0 : 1 }
+          return @available_formats if @available_formats.present?
+          Dir[Rails.root.join('app', 'responders', '*.rb')].each { |file| require_dependency file }
+          @available_formats = descendants.map(&:formats).flatten.sort { |format| format == :html ? 0 : 1 }
         end
       end
     end
