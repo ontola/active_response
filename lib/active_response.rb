@@ -9,9 +9,14 @@ module ActiveResponse
 
   def self.responder_for(format)
     responders[format] ||=
-      ActiveResponse::Responders::Base
-        .descendants
+      registered_responders
         .sort_by { |d| -d.ancestors.count }
         .detect { |responder| responder.formats.include?(format) }
+  end
+
+  def self.registered_responders
+    return @registered_responders if @registered_responders.present?
+    Dir[Rails.root.join('app', 'responders', '*.rb')].each { |file| require_dependency file }
+    @registered_responders = ActiveResponse::Responders::Base.descendants
   end
 end

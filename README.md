@@ -99,13 +99,6 @@ class HTMLResponder < ActiveResponse::Responders::HTML
 end
 ```
 
-ActiveResponse uses `ActiveResponse::Responders::Base.descendants` to find the proper responder for a requested format.
-When classes are not preloaded, for example in a development environment, you might need to require all responders first.
-For example, add this to `config/development.rb`
-```ruby
-Dir["#{Rails.root}/app/responders/*.rb"].each { |file| require_dependency file }
-```
-
 ## Default response types
 The following response types are available by default:
 ```
