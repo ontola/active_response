@@ -2,6 +2,7 @@
 
 require 'active_response/controller'
 require 'active_response/responders/base'
+require 'active_response/railtie' if defined?(Rails::Railtie)
 
 module ActiveResponse
   cattr_accessor :responders
