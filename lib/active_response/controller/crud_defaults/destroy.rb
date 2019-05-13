@@ -33,7 +33,7 @@ module ActiveResponse
         end
 
         def destroy_success_location
-          url_for(controller_name)
+          url_for("/#{controller_name}")
         end
       end
     end
