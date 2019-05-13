@@ -7,6 +7,7 @@ module ActiveResponse
         private
 
         def create_execute
+          current_resource.assign_attributes(permit_params)
           current_resource.save
         end
 
