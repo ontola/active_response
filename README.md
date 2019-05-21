@@ -99,6 +99,18 @@ class HTMLResponder < ActiveResponse::Responders::HTML
 end
 ```
 
+ActiveResponse expects your controllers to respond to `permit_params`. It's recommended to define this method at a 
+higher level and use something like [Pundit](https://github.com/varvet/pundit#strong-parameters) to define the permitted attributes:
+```
+def permit_params
+    @permit_params ||= 
+        params
+          .require(controller_name.singularize)
+          .permit(*policy(current_resource).permitted_attributes)
+end
+```
+
+
 ## Default response types
 The following response types are available by default:
 ```
