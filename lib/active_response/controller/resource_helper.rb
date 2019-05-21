@@ -11,6 +11,10 @@ module ActiveResponse
         instance_variable_set(var, resolve_current_resource)
       end
 
+      def current_resource!
+        current_resource || raise(ActiveRecord::RecordNotFound)
+      end
+
       def controller_class
         @controller_class ||= controller_name.classify.safe_constantize
       end

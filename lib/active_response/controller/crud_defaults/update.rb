@@ -7,7 +7,7 @@ module ActiveResponse
         private
 
         def update_execute
-          current_resource.update permit_params
+          current_resource!.update permit_params
         end
 
         def update_failure
@@ -16,7 +16,7 @@ module ActiveResponse
 
         def update_failure_options
           {
-            resource: current_resource
+            resource: current_resource!
           }
         end
 
@@ -28,12 +28,12 @@ module ActiveResponse
           {
             location: update_success_location,
             notice: active_response_success_message,
-            resource: current_resource
+            resource: current_resource!
           }
         end
 
         def update_success_location
-          url_for(current_resource)
+          url_for(current_resource!)
         end
       end
     end

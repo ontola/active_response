@@ -7,7 +7,7 @@ module ActiveResponse
         private
 
         def destroy_execute
-          current_resource.destroy
+          current_resource!.destroy
         end
 
         def destroy_failure
@@ -16,7 +16,7 @@ module ActiveResponse
 
         def destroy_failure_options
           {
-            resource: current_resource
+            resource: current_resource!
           }
         end
 
@@ -28,7 +28,7 @@ module ActiveResponse
           {
             location: destroy_success_location,
             notice: active_response_success_message,
-            resource: current_resource
+            resource: current_resource!
           }
         end
 

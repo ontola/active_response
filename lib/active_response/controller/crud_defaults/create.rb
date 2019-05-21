@@ -7,8 +7,8 @@ module ActiveResponse
         private
 
         def create_execute
-          current_resource.assign_attributes(permit_params)
-          current_resource.save
+          current_resource!.assign_attributes(permit_params)
+          current_resource!.save
         end
 
         def create_failure
@@ -17,7 +17,7 @@ module ActiveResponse
 
         def create_failure_options
           {
-            resource: current_resource
+            resource: current_resource!
           }
         end
 
@@ -34,12 +34,12 @@ module ActiveResponse
             include: create_includes,
             location: create_success_location,
             notice: active_response_success_message,
-            resource: current_resource
+            resource: current_resource!
           }
         end
 
         def create_success_location
-          url_for(current_resource)
+          url_for(current_resource!)
         end
       end
     end
