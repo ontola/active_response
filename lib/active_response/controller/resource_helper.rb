@@ -20,7 +20,7 @@ module ActiveResponse
       end
 
       def requested_resource
-        @requested_resource ||= controller_class.find_by(id: resource_id)
+        @requested_resource ||= controller_class&.find_by(id: resource_id)
       end
 
       # Instantiates a new record of the current controller type
