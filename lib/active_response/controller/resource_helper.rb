@@ -26,7 +26,11 @@ module ActiveResponse
       # Instantiates a new record of the current controller type
       # @return [ActiveRecord::Base] A fresh model instance
       def new_resource
-        controller_class.new
+        controller_class.new(new_resource_params)
+      end
+
+      def new_resource_params
+        {}
       end
 
       def resolve_current_resource
