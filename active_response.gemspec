@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.files = Dir.glob('lib/**/*.rb')
 
-  s.add_runtime_dependency 'active_model_serializers', '~> 0.10'
   s.add_runtime_dependency 'railties'
 
   s.add_development_dependency 'rspec-rails', '= 3.7.2'
