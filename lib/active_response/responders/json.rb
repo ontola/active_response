@@ -11,7 +11,7 @@ module ActiveResponse
       end
 
       def destroyed(_opts)
-        controller.head :no_content
+        controller.head :no_content, content_type: content_type
       end
 
       def form(**_opts)

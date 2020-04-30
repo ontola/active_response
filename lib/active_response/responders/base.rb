@@ -18,6 +18,12 @@ module ActiveResponse
         self.class.type
       end
 
+      private
+
+      def content_type
+        Mime[format]&.to_s
+      end
+
       class << self
         def respond_to(*formats)
           self.formats = formats
