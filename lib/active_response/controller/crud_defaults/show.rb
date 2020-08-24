@@ -14,7 +14,7 @@ module ActiveResponse
           {
             include: show_includes,
             locals: show_view_locals,
-            resource: current_resource
+            resource: current_resource!
           }
         end
 
