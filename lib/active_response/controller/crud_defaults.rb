@@ -19,12 +19,32 @@ module ActiveResponse
       include Show
       include Update
 
+      private
+
+      def active_response_failure_message
+        return send("#{action_name}_failure_message") if respond_to?("#{action_name}_failure_message", true)
+        I18n.t(failure_message_translation_key, failure_message_translation_opts)
+      end
+
+      def active_response_success_message
+        return send("#{action_name}_success_message") if respond_to?("#{action_name}_success_message", true)
+        I18n.t(success_message_translation_key, success_message_translation_opts)
+      end
+
       def default_form_options(action)
         {
           locals: form_view_locals_for(action),
           resource: current_resource,
           view: form_view_for(action)
         }
+      end
+
+      def failure_message_translation_key
+        "active_response.actions.#{action_name}.failure"
+      end
+
+      def failure_message_translation_opts
+        {type: current_resource.class.to_s.humanize}
       end
 
       def form_view_for(action)
@@ -43,11 +63,6 @@ module ActiveResponse
 
       def default_form_view_locals(_action)
         {}
-      end
-
-      def active_response_success_message
-        return send("#{action_name}_success_message") if respond_to?("#{action_name}_success_message", true)
-        I18n.t(success_message_translation_key, success_message_translation_opts)
       end
 
       def success_message_translation_key

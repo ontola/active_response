@@ -17,6 +17,7 @@ module ActiveResponse
 
         def create_failure_options
           {
+            notice: active_response_failure_message,
             resource: current_resource!
           }
         end
