@@ -30,6 +30,7 @@ module ActiveResponse
 
       def active_response_block
         respond_to do |format|
+          active_response_custom_responses(format)
           ActiveResponse::Responders::Base.available_formats.each do |symbol|
             format.send(symbol) do
               find_active_responder(format)
@@ -38,6 +39,8 @@ module ActiveResponse
           end
         end
       end
+
+      def active_response_custom_responses(_format); end
 
       def active_response_type
         @active_responder.type
