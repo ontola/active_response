@@ -43,7 +43,7 @@ module ActiveResponse
         when Array
           errors.map { |error| formatted_errors(error) }.flatten
         when ActiveModel::Errors
-          errors.keys.reduce([]) do |array, key|
+          errors.attribute_names.reduce([]) do |array, key|
             array.concat(formatted_error(errors, key))
           end
         end
