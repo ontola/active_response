@@ -23,12 +23,14 @@ module ActiveResponse
 
       def active_response_failure_message
         return send("#{action_name}_failure_message") if respond_to?("#{action_name}_failure_message", true)
-        I18n.t(failure_message_translation_key, failure_message_translation_opts)
+
+        I18n.t(failure_message_translation_key, **failure_message_translation_opts)
       end
 
       def active_response_success_message
         return send("#{action_name}_success_message") if respond_to?("#{action_name}_success_message", true)
-        I18n.t(success_message_translation_key, success_message_translation_opts)
+
+        I18n.t(success_message_translation_key, **success_message_translation_opts)
       end
 
       def default_form_options(action)
